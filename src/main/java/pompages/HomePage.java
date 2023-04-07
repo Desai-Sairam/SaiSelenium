@@ -21,7 +21,15 @@ public class HomePage {
 	private WebElement gearsTab;
 	
 	@FindBy(xpath = "//ul[@class='dropdown-menu gear_menu']/descendant::a[text()=' SkillRary Demo APP']")
-	private WebElement skillraryDemoLink;
+	private WebElement skillraryDemoAppLink;
+	
+	@FindBy(xpath = "//input[@placeholder='Search for Product']")
+	private WebElement searchTF;
+	
+	@FindBy(xpath = "//input[@value='go']")
+	private WebElement searchButton;
+	
+	
 	
 	//Initialization
 	public HomePage(WebDriver driver)
@@ -48,6 +56,10 @@ public class HomePage {
 	 */
 	public void clickSkillraryDemoApp()
 	{
-		skillraryDemoLink.click();
+		skillraryDemoAppLink.click();
+	}
+	public void searchFor(String data) {
+		searchTF.sendKeys(data);
+		searchButton.click();
 	}
 }
