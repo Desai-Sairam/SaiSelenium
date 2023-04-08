@@ -8,6 +8,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import pompages.ContactUsPage;
+import pompages.CoreJavaForSeleniumPage;
+import pompages.CoreJavaVideoPage;
 import pompages.HomePage;
 import pompages.SeleniumTraningPage;
 import pompages.SkillraryDemoAppPage;
@@ -27,6 +29,9 @@ public class BaseClass {
 	protected SeleniumTraningPage selenium;
 	protected TestingPage testing;
 	protected ContactUsPage contact;
+	protected CoreJavaForSeleniumPage coreJava;
+	protected CoreJavaVideoPage javaVideo;
+	
 
 	//@BeforeSuite
 	//@BeforeTest
