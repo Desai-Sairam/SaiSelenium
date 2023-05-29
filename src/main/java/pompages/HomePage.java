@@ -7,8 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 /**
- * This class contain all elements and respective business
- * libraries of HomePage
+ * This class contain all elements and respective business libraries of HomePage
  * @author Desai Sairam
  */
 
@@ -16,6 +15,12 @@ public class HomePage {
     //Declaration
 	@FindBy(xpath = "//img[@alt='SkillRary']")
 	private WebElement logo;
+	
+	@FindBy(xpath = "//ul[contains(@class,'home_menu')]/li[1]")
+	private WebElement langIcon;
+	
+	@FindBy(xpath = "//ul[contains(@class,'home_menu')]/descendant::a[text()=' English']")
+	private WebElement English;
 	
 	@FindBy(xpath = "//a[text()=' GEARS ']")
 	private WebElement gearsTab;
@@ -44,6 +49,13 @@ public class HomePage {
 	public WebElement getLogo()
 	{
 		return logo;
+	}
+	/**
+	 * This method will click on the language drop down and select English from it
+	 */
+	public void chooseEng() {
+		langIcon.click();
+		English.click();
 	}
 	/**
 	 * This method is used to click on Gears tab

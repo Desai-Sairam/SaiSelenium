@@ -3,9 +3,9 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="testscripts.Test1"/>
-      <class name="testscripts.Test3"/>
-      <class name="testscripts.Test2"/>
+      <class name="testscripts.addToCart"/>
+      <class name="testscripts.AddSeleniumToCart"/>
+      <class name="testscripts.sendContactDetails"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

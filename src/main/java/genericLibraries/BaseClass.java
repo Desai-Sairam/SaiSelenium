@@ -1,7 +1,6 @@
 package genericLibraries;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -25,7 +24,6 @@ public class BaseClass {
 	protected HomePage home;
 	 
 	protected SkillraryDemoAppPage demoApp;
-	
 	protected SeleniumTraningPage selenium;
 	protected TestingPage testing;
 	protected ContactUsPage contact;
@@ -45,34 +43,31 @@ public class BaseClass {
 		jUtil = new JavaUtility();
 		
 		property.propertyConfig(IConstantPath.PROPERTIES_PATH);
-		String browser= property.fetchProperty("browser");
-		String url= property.fetchProperty("url");
-		long time = Long.parseLong(property.fetchProperty("time"));
+		excel.excelInitialization(IConstantPath.EXCEL_PATH);
 		
-		driver=web.openApplication(browser, url, time);
 	}
 	@BeforeMethod
 	public void methodConfiguration() {
-		excel.excelInitialization(IConstantPath.EXCEL_PATH);
+		driver= web.openApplication(property.fetchProperty("browser"));
+		web.maximizeBrowser();
+		web.launchBrowser(property.fetchProperty("url"));
+		web.waitUntilElementFound(Long.parseLong(property.fetchProperty("time")));
+		
 		
 		home = new HomePage(driver);
 		demoApp= new SkillraryDemoAppPage(driver);
 		selenium= new SeleniumTraningPage(driver);
 		testing= new TestingPage(driver);
-		contact = new ContactUsPage(driver);
-		
-		Assert.assertTrue(home.getLogo().isDisplayed());
-		
-		
+		contact = new ContactUsPage(driver);	
 	}
 	
 	@AfterMethod
 	public void methodTearDown() {
-		excel.closeWorkbook();
+		web.quitBrowser();
 	}
 	@AfterClass
 	public void classTearDown() {
-		web.quitBrowser();
+		excel.closeWorkbook();
 		
 	}
 	//@AfterTest

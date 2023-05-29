@@ -5,19 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
 /**
- * This class contains reusable methods for the actions performed on properties
- * file
+ * This class contains reusable methods for the actions performed on properties file
+ * 
  * 
  * @author Admin
  *
  */
-
 public class PropertyFileUtility {
-
 	private Properties property;
-
 	/**
 	 * This method is used to initialize Properties file
 	 * 
@@ -31,7 +27,6 @@ public class PropertyFileUtility {
 
 			e.printStackTrace();
 		}
-		
 	property=new Properties();
 	try {
 		property.load(fis);
@@ -49,7 +44,6 @@ public class PropertyFileUtility {
 	 */
 	public String fetchProperty(String key) {
 		return property.getProperty(key);
-		
 	}
 	/**
 	 * This method is used to write data into properties file
@@ -59,7 +53,6 @@ public class PropertyFileUtility {
 	 * @param filePath
 	 * @param message
 	 */
-	
 	public void setDataToProperties(String key, String value,String filePath,String message) {
 		property.put(key, value);
 		try {

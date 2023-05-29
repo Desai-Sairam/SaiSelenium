@@ -48,7 +48,7 @@ public class SkillraryDemoAppPage {
 		return pageHeader.getText();
 	}
 	/**
-	 * This method is uesd to mouse hover to course Tab
+	 * This method is used to mouse hover to course Tab
 	 * @param web
 	 */
 	public void mouseHoverToCourse(WebDriverUtility web)
@@ -56,13 +56,13 @@ public class SkillraryDemoAppPage {
 		web.mouseHover(courseTab);
 	}
 	/**
-	 * This method is used to click on selenium Trainin link
+	 * This method is used to click on selenium training link
 	 */
 	public void clickSeleniumTraining() {
 		seleniumTrainingLink.click();
 	}
 	/**
-	 * This method is used to choose the category from dropdown
+	 * This method is used to choose the category from drop down
 	 * @param web
 	 * @param index
 	 */

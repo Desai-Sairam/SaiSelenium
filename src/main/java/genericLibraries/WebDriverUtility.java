@@ -25,7 +25,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
- * This Contains All reusable methods of WebDriver
+ * This class contains all reusable methods of WebDriver
  * 
  * @author Desai Sairam
  *
@@ -38,14 +38,13 @@ public class WebDriverUtility {
 	private Select s;
 
 	/**
-	 * 
+	 * This method is used to launch browsers
 	 * @param browser
-	 * @param url
-	 * @param time
-	 * @return
+	 * 
+	 * @return 
 	 */
 
-	public WebDriver openApplication(String browser, String url, long time) {
+	public WebDriver openApplication(String browser) {
 		switch (browser) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
@@ -60,16 +59,35 @@ public class WebDriverUtility {
 			driver = new EdgeDriver();
 			break;
 		default:
-			System.out.println();
+			System.out.println("Invalid browser info");
 		}
-		driver.manage().window().maximize();
-		driver.get(url);
-		driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
 		return driver;
+	}
+	/**
+	 * This method maximizes the browser
+	 */
+	public void maximizeBrowser() {
+		driver.manage().window().maximize();
+	}
+	/**
+	 * This method launches the application via url
+	 * @param url
+	 * @return 
+	 */
+	public WebDriver launchBrowser(String url) {
+		driver.get(url);
+		return driver;
+	}
+	/**
+	 * This method waits until the element/elements is/are found
+	 * @param time
+	 */
+	public void waitUntilElementFound(long time) {
+		driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
 	}
 
 	/**
-	 * This method is used to Wait until
+	 * This method is used to wait until element is displayed
 	 * 
 	 * @param element
 	 * @param time
@@ -80,39 +98,53 @@ public class WebDriverUtility {
 		WebElement e = wait.until(ExpectedConditions.visibilityOf(element));
 		return e;
 	}
-
 	/**
-	 * This method is used to mouseHover the element
-	 * 
+	 * This method is used to wait until element is enabled
+	 * @param time
+	 * @param element
+	 * @return
+	 */
+	public WebElement explicitWait(long time, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, time);
+		WebElement e = wait.until(ExpectedConditions.elementToBeClickable(element));
+		return e;
+	}
+	/**
+	 * This method is used to wait until web page title is displayed 
+	 * @param time
+	 * @param title
+	 * @return
+	 */
+	public Boolean explicitWait(long time, String title) {
+		WebDriverWait wait = new WebDriverWait(driver, time);
+		Boolean e = wait.until(ExpectedConditions.titleContains(title));
+		return e;
+	}
+	/**
+	 * This method is used to mouseHover to the element
 	 * @param Element
 	 */
-	public void mouseHover(WebElement Element) {
+	public void mouseHover(WebElement element) {
 		a = new Actions(driver);
-		a.moveToElement(Element).perform();
+		a.moveToElement(element).perform();
 	}
-
 	/**
 	 * This method is used to double click on an element
-	 * 
 	 * @param Element
 	 */
-	public void doubleClickOnElement(WebElement Element) {
+	public void doubleClickOnElement(WebElement element) {
 		a = new Actions(driver);
-		a.doubleClick(Element).perform();
+		a.doubleClick(element).perform();
 	}
-
 	/**
 	 * This method is used to right click on an Element
 	 */
-	public void rightClick() {
+	public void rightClick(WebElement element) {
 		a = new Actions(driver);
-		a.contextClick().perform();
+		a.contextClick(element).perform();
 	}
-
 	/**
-	 * This method is used to drag and drop an Element in Specified element to
-	 * target
-	 * 
+	 * This method is used to drag and drop an element from specified element to target
 	 * @param element
 	 * @param target
 	 */
@@ -120,10 +152,8 @@ public class WebDriverUtility {
 		a = new Actions(driver);
 		a.dragAndDrop(element, target).perform();
 	}
-
 	/**
-	 * This method is used to select an element from dropdown based on index
-	 * 
+	 * This method is used to select an element from drop down based on index 
 	 * @param element
 	 * @param index
 	 */
@@ -131,10 +161,8 @@ public class WebDriverUtility {
 		s = new Select(element);
 		s.selectByIndex(index);
 	}
-
 	/**
-	 * This method is used to select an element from dropdown based on value
-	 * 
+	 * This method is used to select an element from drop down based on value 
 	 * @param element
 	 * @param value
 	 */
@@ -144,8 +172,7 @@ public class WebDriverUtility {
 	}
 
 	/**
-	 * This method is used to select an element from dropdown based on visibleText
-	 * 
+	 * This method is used to select an element from drop down based on visibleText
 	 * @param text
 	 * @param element
 	 */
@@ -153,46 +180,46 @@ public class WebDriverUtility {
 		s = new Select(element);
 		s.selectByVisibleText(text);
 	}
-
+	 /**
+     * This method is used to scroll till the specified elemen 
+     * @param element
+     */
+	public void scrollTillElement(WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true)", element);
+	}
 	/**
-	 * This method is used to switch to frameBased on index
-	 * 
+	 * This method is used to switch to frame using on index
 	 * @param index
 	 */
 	public void switchToFrame(int index) {
 		driver.switchTo().frame(index);
 	}
-
 	/**
-	 * This method is used to switch to frameBased on element
-	 * 
+	 * This method is used to switch to frame using name or id
 	 * @param nameOrId
 	 */
 	public void switchToFrame(String nameOrId) {
 		driver.switchTo().frame(nameOrId);
 	}
-
 	/**
-	 * This method is used to switch to frameBased on element
+	 * This method is used to switch to frame using frame element
 	 * 
 	 * @param frameElement
 	 */
 	public void switchToFrame(WebElement frameElement) {
 		driver.switchTo().frame(frameElement);
 	}
-
 	/**
-	 * This method is used to switch back to frame to frame
+	 * This method is used to switch back from frame to frame
 	 */
 	public void switchBackFromFrame() {
 		driver.switchTo().defaultContent();
 	}
-
-	public void scrollTillElement(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)", element);
-	}
-
+    /**
+     * This method is used to capture screenshot of window 
+     * @param javaUtil
+     */
 	public void takeScreenshot(JavaUtility javaUtil) {
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File src = ts.getScreenshotAs(OutputType.FILE);
@@ -203,32 +230,41 @@ public class WebDriverUtility {
 			e.printStackTrace();
 		}
 	}
-
+    /**
+     * This method is used to handle alert pop up
+     * @param status
+     */
 	public void handleAlert(String status) {
-		Alert a1 = driver.switchTo().alert();
+		Alert al = driver.switchTo().alert();
 		if (status.equalsIgnoreCase("ok"))
 
-			a1.accept();
+			al.accept();
 
 		else
-			a1.dismiss();
+			al.dismiss();
 	}
 
 	public void switchToParentWindow() {
 		driver.switchTo().window(driver.getWindowHandle());
 	}
-
+	/**
+	 * This method is used to switch to child browser
+	 */
 	public void handleChildBrowser() {
 		Set<String> set = driver.getWindowHandles();
 		for (String wId : set) {
 			driver.switchTo().window(wId);
 		}
 	}
-
+	/**
+	 * This method is used to close the current window
+	 */
 	public void closeCurrentTab() {
 		driver.close();
 	}
-
+	/**
+	 * This method is used to exit all the windows
+	 */
 	public void quitBrowser() {
 		driver.quit();
 	}

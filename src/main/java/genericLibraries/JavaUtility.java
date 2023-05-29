@@ -20,7 +20,7 @@ public class JavaUtility {
 		return randomNum;
 		
 	}
-	/**This method returns current time in Specified format 
+	/**This method returns current system time in Specified format 
 	 * @return
 	 */
 	
